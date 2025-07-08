@@ -1,1 +1,1 @@
-pnpm --filter "@nlw-agents/*" pre-commit
+npx ultracite format
