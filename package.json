@@ -1,0 +1,36 @@
+{
+	"name": "@nlw-agents/source",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"description": "",
+	"author": {
+		"name": "Gustavo Morinaga",
+		"email": "me@gustavomorinaga.dev",
+		"url": "https://gustavomorinaga.dev"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gustavomorinaga/nlw-agents"
+	},
+	"engines": {
+		"pnpm": ">=10",
+		"node": ">=22"
+	},
+	"packageManager": "pnpm@10.11.0",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "19.5.0",
+		"@commitlint/config-conventional": "19.5.0",
+		"eslint": "9.23.0",
+		"eslint-config-prettier": "10.1.1",
+		"eslint-plugin-prettier": "5.2.6",
+		"husky": "9.1.6",
+		"lint-staged": "15.2.10",
+		"prettier": "3.3.3",
+		"prettier-plugin-tailwindcss": "0.6.8",
+		"typescript-eslint": "8.12.0"
+	}
+}
