@@ -1,0 +1,1 @@
+pnpm --filter "@nlw-agents/*" pre-commit

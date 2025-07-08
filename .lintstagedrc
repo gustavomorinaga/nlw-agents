@@ -1,0 +1,4 @@
+{
+	"+(apps|packages)/**/*.+(js|ts|svelte)": "pnpm format:staged && pnpm lint",
+	"+(apps|packages)/**/*.+(md)": "pnpm format:staged"
+}
