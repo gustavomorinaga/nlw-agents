@@ -3,7 +3,6 @@
 	"type": "module",
 	"version": "0.0.1",
 	"private": true,
-	"packageManager": "pnpm@10.13.1",
 	"description": "",
 	"author": {
 		"name": "Gustavo Morinaga",
@@ -18,8 +17,11 @@
 		"pnpm": ">=10",
 		"node": ">=22"
 	},
+	"packageManager": "pnpm@10.13.1",
 	"scripts": {
+		"dev": "pnpm --parallel --filter @nlw-agents/* run dev",
 		"dev:server": "pnpm -r --filter @nlw-agents/server run dev",
+		"dev:web": "pnpm -r --filter @nlw-agents/web run dev",
 		"format": "pnpm -r --filter @nlw-agents/* run format",
 		"lint": "pnpm -r --filter @nlw-agents/* run lint",
 		"preinstall": "npx only-allow pnpm"
