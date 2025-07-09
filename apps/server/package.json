@@ -1,27 +1,33 @@
 {
-  "name": "@nlw-agents/server",
-  "type": "module",
-  "version": "0.0.1",
-  "private": true,
-  "description": "",
-  "author": "",
-  "license": "MIT",
-  "keywords": [],
-  "main": "src/server.ts",
-  "scripts": {
-    "dev": "node --env-file .env --experimental-strip-types --no-warnings --watch .",
-    "start": "node --env-file .env --experimental-strip-types --no-warnings .",
-    "lint": "pnpm dlx ultracite lint",
-    "format": "pnpm dlx ultracite format"
-  },
-  "dependencies": {
-    "@fastify/cors": "11.0.1",
-    "fastify": "5.4.0",
-    "fastify-type-provider-zod": "5.0.1",
-    "zod": "3.25.75"
-  },
-  "devDependencies": {
-    "@types/node": "24.0.10",
-    "typescript": "5.8.3"
-  }
+	"name": "@nlw-agents/server",
+	"type": "module",
+	"version": "0.0.1",
+	"private": true,
+	"description": "",
+	"author": "",
+	"license": "MIT",
+	"keywords": [],
+	"main": "src/server.ts",
+	"scripts": {
+		"drizzle-kit": "drizzle-kit",
+		"dev": "node --env-file .env --experimental-strip-types --no-warnings --watch .",
+		"start": "node --env-file .env --experimental-strip-types --no-warnings .",
+		"db:seed": "node --env-file .env --experimental-strip-types --no-warnings src/db/seed.ts",
+		"lint": "pnpm dlx ultracite lint",
+		"format": "pnpm dlx ultracite format"
+	},
+	"dependencies": {
+		"@fastify/cors": "11.0.1",
+		"drizzle-orm": "0.44.2",
+		"fastify": "5.4.0",
+		"fastify-type-provider-zod": "5.0.1",
+		"postgres": "3.4.7",
+		"zod": "3.25.75"
+	},
+	"devDependencies": {
+		"@types/node": "24.0.10",
+		"drizzle-seed": "0.3.1",
+		"drizzle-kit": "0.31.4",
+		"typescript": "5.8.3"
+	}
 }
