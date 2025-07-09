@@ -13,7 +13,13 @@ await seed(db, schema).refine(f => {
 				description: f.loremIpsum(),
 			},
 		},
+		questions: {
+			count: 20,
+		},
 	};
 });
 
 await sql.end();
+
+// biome-ignore lint/suspicious/noConsole: only used in development
+console.log('Database seeded successfully!');

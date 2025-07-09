@@ -9,10 +9,12 @@
 	"keywords": [],
 	"main": "src/server.ts",
 	"scripts": {
-		"drizzle-kit": "drizzle-kit",
 		"dev": "node --env-file .env --experimental-strip-types --no-warnings --watch .",
 		"start": "node --env-file .env --experimental-strip-types --no-warnings .",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
 		"db:seed": "node --env-file .env --experimental-strip-types --no-warnings src/db/seed.ts",
+		"db:studio": "drizzle-kit studio",
 		"lint": "pnpm dlx ultracite lint",
 		"format": "pnpm dlx ultracite format"
 	},
