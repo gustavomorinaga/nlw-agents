@@ -15,6 +15,13 @@
       "when": 1752093955138,
       "tag": "0001_cooing_squadron_supreme",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752374940727,
+      "tag": "0002_flashy_dakota_north",
+      "breakpoints": true
     }
   ]
 }
