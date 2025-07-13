@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
+const AUDIO_CAPTURE_INTERVAL = 10_000;
+
 const isRecordingSupported =
 	!!navigator.mediaDevices &&
 	typeof navigator.mediaDevices.getUserMedia === 'function' &&
@@ -13,9 +15,24 @@ type TRoomParams = {
 
 export function RecordRoomAudioPage() {
 	const params = useParams<TRoomParams>();
-
 	const [isRecording, setIsRecording] = useState(false);
 	const recorder = useRef<MediaRecorder | null>(null);
+	const intervalRef = useRef<NodeJS.Timeout>(null);
+
+	function createRecorder(audio: MediaStream) {
+		recorder.current = new MediaRecorder(audio, {
+			mimeType: 'audio/webm',
+			audioBitsPerSecond: 64_000,
+		});
+
+		recorder.current.ondataavailable = event => {
+			if (event.data.size > 0) {
+				uploadAudio(event.data);
+			}
+		};
+
+		recorder.current.start();
+	}
 
 	async function startRecording() {
 		if (!isRecordingSupported) {
@@ -33,18 +50,12 @@ export function RecordRoomAudioPage() {
 			},
 		});
 
-		recorder.current = new MediaRecorder(audio, {
-			mimeType: 'audio/webm',
-			audioBitsPerSecond: 64_000,
-		});
+		createRecorder(audio);
 
-		recorder.current.ondataavailable = event => {
-			if (event.data.size > 0) {
-				uploadAudio(event.data);
-			}
-		};
-
-		recorder.current.start();
+		intervalRef.current = setInterval(() => {
+			recorder.current?.stop();
+			createRecorder(audio);
+		}, AUDIO_CAPTURE_INTERVAL);
 	}
 
 	function stopRecording() {
@@ -53,6 +64,11 @@ export function RecordRoomAudioPage() {
 		if (recorder.current && recorder.current.state !== 'inactive') {
 			recorder.current.stop();
 		}
+
+		if (intervalRef.current) {
+			clearInterval(intervalRef.current);
+			intervalRef.current = null;
+		}
 	}
 
 	async function uploadAudio(audio: Blob) {
@@ -60,17 +76,10 @@ export function RecordRoomAudioPage() {
 
 		formData.append('file', audio, 'audio.webm');
 
-		const response = await fetch(
-			`http://localhost:3333/rooms/${params.roomID}/audio`,
-			{
-				method: 'POST',
-				body: formData,
-			}
-		);
-
-		const result = await response.json();
-
-		console.log(result);
+		await fetch(`http://localhost:3333/rooms/${params.roomID}/audio`, {
+			method: 'POST',
+			body: formData,
+		});
 	}
 
 	if (!params.roomID) {
