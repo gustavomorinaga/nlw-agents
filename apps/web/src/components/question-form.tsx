@@ -49,6 +49,8 @@ export function QuestionForm({ roomID }: TQuestionFormProps) {
 		questionForm.reset();
 	}
 
+	const { isSubmitting } = questionForm.formState;
+
 	return (
 		<Card>
 			<CardHeader>
@@ -72,6 +74,7 @@ export function QuestionForm({ roomID }: TQuestionFormProps) {
 									<FormControl>
 										<Textarea
 											className="min-h-[100px]"
+											disabled={isSubmitting}
 											placeholder="O que você gostaria de saber?"
 											{...field}
 										/>
@@ -81,7 +84,9 @@ export function QuestionForm({ roomID }: TQuestionFormProps) {
 							)}
 						/>
 
-						<Button type="submit">Enviar pergunta</Button>
+						<Button disabled={isSubmitting} type="submit">
+							Enviar pergunta
+						</Button>
 					</form>
 				</Form>
 			</CardContent>

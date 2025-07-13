@@ -1,3 +1,4 @@
 export type TCreateQuestionResponse = {
-	question: string;
+	questionID: string;
+	answer: string | null;
 };
