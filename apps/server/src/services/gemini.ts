@@ -1,9 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { env } from '../env.ts';
 
-const gemini = new GoogleGenAI({
-	apiKey: env.GEMINI_API_KEY,
-});
+const gemini = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
 const contentModel = 'gemini-2.5-flash';
 const embeddingModel = 'text-embedding-004';
@@ -67,7 +65,7 @@ export async function generateAnswer(
 		- Be objective and concise;
 		- Maintain an educational and professional tone;
 		- Cite relevant excerpts from the context if appropriate;
-		- If you are citing the context, use the term "class content".
+		- If you are citing the context, use the term "conteúdo da aula"
 	`.trim();
 
 	const response = await gemini.models.generateContent({
