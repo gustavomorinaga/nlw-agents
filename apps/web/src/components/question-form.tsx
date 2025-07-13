@@ -18,6 +18,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { useCreateQuestion } from '@/http/use-create-question';
 
 const createQuestionSchema = z.object({
 	question: z
@@ -34,16 +35,18 @@ type TQuestionFormProps = {
 };
 
 export function QuestionForm({ roomID }: TQuestionFormProps) {
-	const form = useForm<TCreateQuestionFormData>({
+	const { mutateAsync: createQuestion } = useCreateQuestion(roomID);
+
+	const questionForm = useForm<TCreateQuestionFormData>({
 		resolver: zodResolver(createQuestionSchema),
 		defaultValues: {
 			question: '',
 		},
 	});
 
-	function handleCreateQuestion(data: TCreateQuestionFormData) {
-		// biome-ignore lint/suspicious/noConsole: dev
-		console.log(data, roomID);
+	async function handleCreateQuestion(data: TCreateQuestionFormData) {
+		await createQuestion(data);
+		questionForm.reset();
 	}
 
 	return (
@@ -55,13 +58,13 @@ export function QuestionForm({ roomID }: TQuestionFormProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<Form {...form}>
+				<Form {...questionForm}>
 					<form
 						className="flex flex-col gap-4"
-						onSubmit={form.handleSubmit(handleCreateQuestion)}
+						onSubmit={questionForm.handleSubmit(handleCreateQuestion)}
 					>
 						<FormField
-							control={form.control}
+							control={questionForm.control}
 							name="question"
 							render={({ field }) => (
 								<FormItem>
